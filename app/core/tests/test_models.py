@@ -22,3 +22,5 @@ class ModelTests(TestCase):
             email,
             'password12345'
         )
+
+        self.assertEqual(user.email, email.lower())
