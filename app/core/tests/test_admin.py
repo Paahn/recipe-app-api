@@ -12,3 +12,14 @@ class AdminSiteTests(TestCase):
             password='password12345'
         )
         self.client.force_login(self.admin_user)
+        self.user = get_user_model().objects.create_user(
+            email='email@me2.com',
+            password='password12345',
+            name='Supreme Leader Aladeen'
+        )
+
+    def test_users_listed(self):
+        """Test that users are listed on the user page"""
+        url = reverse('admin:core_user_changelist')
+        response = self.client.get(url)
+        
