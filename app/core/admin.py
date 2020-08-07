@@ -9,6 +9,12 @@ from core import models
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
     list_display = ['email', 'name']
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (),
+        (),
+        ()
+    )
 
 
 admin.site.register(models.User, UserAdmin)
