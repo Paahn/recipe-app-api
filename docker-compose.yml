@@ -15,7 +15,8 @@ services:
       - DB_NAME=app
       - DB_USER=chefboyardi
       - DB_PASS=famoso
-    
+    depends_on: 
+      - db
 
 
   db:
