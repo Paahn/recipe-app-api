@@ -13,3 +13,5 @@ class CommandTests(TestCase):
         postgres service"""
         with patch('django.db.utils.ConnectionHandler.__getitem__') as get_item:
             get_item.return_value = True
+            call_command('wait_for_db')
+            self.assertEqual(get_item.call_count, 1)
