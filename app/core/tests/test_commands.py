@@ -11,15 +11,15 @@ class CommandTests(TestCase):
         """Test waiting for db when db is available. Db may not
         be open for connections if django starts faster than the
         postgres service"""
-        with patch('django.db.utils.ConnectionHandler.__getitem__') as get_item:
-            get_item.return_value = True
+        with patch('django.db.utils.ConnectionHandler.__getitem__') as getitem:
+            getitem.return_value = True
             call_command('wait_for_db')
-            self.assertEqual(get_item.call_count, 1)
+            self.assertEqual(getitem.call_count, 1)
 
     @patch('time.sleep', return_value=True)
     def test_wait_for_db(self, sleeping):
         """Test waiting for db"""
-        with patch('django.db.utils.ConnectionHandler.__getitem__') as get_item:
-            get_item.side_effect = [OperationalError] * 5 + [True]
+        with patch('django.db.utils.ConnectionHandler.__getitem__') as getitem:
+            getitem.side_effect = [OperationalError] * 5 + [True]
             call_command('wait_for_db')
-            self.assertEqual(get_item.call_count, 6)
+            self.assertEqual(getitem.call_count, 6)
