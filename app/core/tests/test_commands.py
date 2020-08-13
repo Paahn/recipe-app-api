@@ -15,3 +15,7 @@ class CommandTests(TestCase):
             get_item.return_value = True
             call_command('wait_for_db')
             self.assertEqual(get_item.call_count, 1)
+
+    @patch('time.sleep', return_value=True)
+    def test_wait_for_db(self, sleeping):
+        """Test waiting for db"""
