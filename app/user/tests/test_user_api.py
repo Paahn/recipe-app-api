@@ -29,4 +29,4 @@ class PublicUserApiTests(TestCase):
         }
         response = self.client.post(CREATE_USER_URL, payload)
 
-        
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
