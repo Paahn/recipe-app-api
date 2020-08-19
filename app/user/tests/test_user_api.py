@@ -58,4 +58,8 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+        user_exists = get_user_model().objects.filter(
+            email=payload['email']
+        ).exists()
+
 
