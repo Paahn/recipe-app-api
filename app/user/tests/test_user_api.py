@@ -33,3 +33,12 @@ class PublicUserApiTests(TestCase):
         user = get_user_model().objects.get(**response.data)
         self.assertTrue(user.check_password(payload['password']))
         self.assertNotIn('password', response.data)
+
+    def test_user_exists(self):
+        """Test that creating an existing user fails"""
+        payload = {
+            'email': 'erranmorrad@yalla.com',
+            'password': 'yalla',
+            'name': 'Erran Morrad'
+        }
+        create_user(**payload)
