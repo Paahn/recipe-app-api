@@ -42,3 +42,6 @@ class PublicUserApiTests(TestCase):
             'name': 'Erran Morrad'
         }
         create_user(**payload)
+
+        response = self.client.post(CREATE_USER_URL, payload)
+        
