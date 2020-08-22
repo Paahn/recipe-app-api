@@ -76,3 +76,4 @@ class PublicUserApiTests(TestCase):
         response = self.client.post(TOKEN_URL, payload)
 
         self.assertIn('token', response.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
