@@ -112,7 +112,12 @@ class PublicUserApiTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_authentication_required_for_users(self):
-        """Test that a user accessing the profile url is authenticated"""
+        """Test if a user accessing the profile url is not authenticated"""
         response = self.client.get(ME_URL)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class PrivateUserApiTests(TestCase):
+    """Test API requests that require authentication"""
+    
