@@ -110,3 +110,7 @@ class PublicUserApiTests(TestCase):
             self.client.post(TOKEN_URL, {'email': 'nope', 'password': ''})
         self.assertNotIn('token', response.data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_authentication_required_for_users(self):
+        """Test that a user accessing the profile url is authenticated"""
+        response = self.client.get(ME_URL)
