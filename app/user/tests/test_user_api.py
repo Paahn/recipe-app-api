@@ -144,4 +144,4 @@ class PrivateUserApiTests(TestCase):
         """Test that POST is not allowed on the me url"""
         response = self.client.post(ME_URL, {})
 
-        
+        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
