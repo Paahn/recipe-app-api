@@ -129,3 +129,7 @@ class PrivateUserApiTests(TestCase):
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
+
+    def test_retrieve_profile_success(self):
+        """Test retrieving profile for the user who is logged in"""
+        response = self.client.get(ME_URL)
