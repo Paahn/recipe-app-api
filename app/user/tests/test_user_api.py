@@ -139,3 +139,9 @@ class PrivateUserApiTests(TestCase):
             'name': self.user.name,
             'email': self.user.email
         })
+
+    def test_post_request_not_allowed(self):
+        """Test that POST is not allowed on the me url"""
+        response = self.client.post(ME_URL, {})
+
+        
