@@ -17,6 +17,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """Update a user, setting the password correctly and return it"""
+        password = validated_data.pop('password', None)
+
 
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user authentication object"""
