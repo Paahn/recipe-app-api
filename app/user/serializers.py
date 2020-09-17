@@ -20,6 +20,12 @@ class UserSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password', None)
         user.super().update(instance, validated_data)
 
+        if (password):
+            user.set_password(password)
+            user.save()
+
+        return user
+
 
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user authentication object"""
