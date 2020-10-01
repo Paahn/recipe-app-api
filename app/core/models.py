@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.conf import settings
 
-# Create your models here.
+
 class UserManager(BaseUserManager):
 
     def create_user(self, email, password=None, **extra_fields):
