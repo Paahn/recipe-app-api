@@ -33,3 +33,14 @@ class PrivateTagsApiTests(TestCase):
         )
         self.client = APIClient()
         self.client.force_authenticate(self.user)
+
+    def test_retrieve_tags(self):
+        """Test retrieving tags"""
+        Tag.objects.create(user=self.user, name="Burger")
+        Tag.objects.create(user=self.user, name="Souvlaki")
+
+        response = self.client.get(TAGS_URLS)
+
+        tags = Tag.objects.all().order_by('-name')
+        serializer = TagSerializer(tags, many=True)
+        
