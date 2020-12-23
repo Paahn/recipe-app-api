@@ -55,4 +55,7 @@ class PrivateIngredientsApiTests(TestCase):
     Ingredient.objects.create(user=user2, name='Lard')
     ingredient = Ingredient.objects.create(user=self.user, name='Brown Rice')
 
-    
+    response = self.client.get(INGREDIENTS_URL)
+
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(len(response.data), 1)
