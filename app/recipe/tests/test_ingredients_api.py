@@ -34,3 +34,12 @@ class PrivateIngredientsApiTests(TestCase):
     )
     self.client.force_authenticate(self.user)
 
+  def test_retrieve_ingredients_list(self):
+    """Test retrieving a list of ingredients for an authenticated user"""
+    Ingredient.objects.create(user=self.user, name='A very nice potato')
+    Ingredient.objects.create(user=self.user, name='Wife milk cheese')
+
+    response = self.client.get(INGREDIENTS_URL)
+
+    ingredients = Ingredient.objects.all().order_by('-name')
+    serializer = IngredientSerializer(ingredients, many=True)
