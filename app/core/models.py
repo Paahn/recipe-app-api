@@ -51,7 +51,7 @@ class Tag(models.Model):
 
 class Ingredient(models.Model):
     """Ingredient used for a recipe"""
-    name = models.Charfield(max_length=255)
+    name = models.CharField(max_length=255)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
