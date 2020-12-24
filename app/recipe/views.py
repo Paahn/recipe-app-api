@@ -6,6 +6,18 @@ from core.models import Tag, Ingredient
 from recipe import serializers
 
 
+class BaseRecipeElementsViewSet(viewsets.GenericViewSet,
+                 mixins.ListModelMixin,
+                 mixins.CreateModelMixin):
+        """Base viewset for user owned recipe elements such as tag and ingredient"""
+        authentication_classes = (TokenAuthentication,)
+        permission_classes = (IsAuthenticated,)
+
+        def get_queryset(self):
+            """Return objects for the current authenticated user only"""
+            return self.queryset.filter(user=self.request.user).order_by('-name')
+
+
 class TagViewSet(viewsets.GenericViewSet,
                  mixins.ListModelMixin,
                  mixins.CreateModelMixin):
