@@ -74,3 +74,4 @@ class PrivateIngredientsApiTests(TestCase):
         user=self.user,
         name=payload['name'],
       ).exists()
+      self.assertTrue(exists)
