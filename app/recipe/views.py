@@ -7,19 +7,21 @@ from recipe import serializers
 
 
 class BaseRecipeElementsViewSet(viewsets.GenericViewSet,
-                 mixins.ListModelMixin,
-                 mixins.CreateModelMixin):
-        """Base viewset for user owned recipe elements such as tag and ingredient"""
-        authentication_classes = (TokenAuthentication,)
-        permission_classes = (IsAuthenticated,)
+                                mixins.ListModelMixin,
+                                mixins.CreateModelMixin):
+    """Base viewset for user owned recipe elements"""
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
-        def get_queryset(self):
-            """Return objects for the current authenticated user only"""
-            return self.queryset.filter(user=self.request.user).order_by('-name')
+    def get_queryset(self):
+        """Return objects for the current authenticated user only"""
+        return self.queryset.filter(
+            user=self.request.user
+            ).order_by('-name')
 
-        def perform_create(self, serializer):
-            """Create a new recipe element"""
-            serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        """Create a new recipe element"""
+        serializer.save(user=self.request.user)
 
 
 class TagViewSet(BaseRecipeElementsViewSet):
@@ -32,4 +34,3 @@ class IngredientViewSet(BaseRecipeElementsViewSet):
     """Manage ingredients in the database"""
     queryset = Ingredient.objects.all()
     serializer_class = serializers.IngredientSerializer
-
