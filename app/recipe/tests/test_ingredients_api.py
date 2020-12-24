@@ -69,3 +69,8 @@ class PrivateIngredientsApiTests(TestCase):
       """Test creating a new ingredient successfully"""
       payload = {'name': 'Butter'}
       self.client.post(INGREDIENTS_URL, payload)
+
+      exists = Ingredient.objects.filter(
+        user=self.user,
+        name=payload['name'],
+      )
