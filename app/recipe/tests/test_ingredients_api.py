@@ -73,4 +73,4 @@ class PrivateIngredientsApiTests(TestCase):
       exists = Ingredient.objects.filter(
         user=self.user,
         name=payload['name'],
-      )
+      ).exists()
