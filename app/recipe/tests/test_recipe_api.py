@@ -46,3 +46,4 @@ class PrivateRecipeApiTests(TestCase):
         'aladeen@aladeen.wa',
         'aladeen'
       )
+      self.client.force_authenticate(self.user)
