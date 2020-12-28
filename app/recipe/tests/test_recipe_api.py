@@ -20,3 +20,5 @@ def sample_recipe(user, **params):
       'price': 5.00
     }
     defaults.update(params)
+
+    return Recipe.objects.create(user=user, **defaults)
