@@ -61,3 +61,12 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
+    def test_recipes_limited_to_user(self):
+      """Test retrieving the correct recipes for the user"""
+      user2 = get_user_model().objects.create_user(
+        'borat@verynice.kz',
+        'pamela'
+      )
+      sample_recipe(user=user2)
+      sample_recipe(user=self.user)
+
