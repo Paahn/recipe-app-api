@@ -35,3 +35,14 @@ class PublicRecipeApiTests(TestCase):
         response = self.client.get(RECIPES_URL)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    
+
+class PrivateRecipeApiTests(TestCase):
+    """Test unauthenticated recipe API access"""
+
+    def setUp(self):
+      self.client = APIClient()
+      self.user = get_user_model().objects.create_user(
+        'aladeen@aladeen.wa',
+        'aladeen'
+      )
