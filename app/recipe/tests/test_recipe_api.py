@@ -19,3 +19,4 @@ def sample_recipe(user, **params):
       'time_minutes': 10,
       'price': 5.00
     }
+    defaults.update(params)
