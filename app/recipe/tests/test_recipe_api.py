@@ -10,3 +10,8 @@ from core.models import Recipe
 from recipe.serializers import RecipeSerializer
 
 RECIPES_URL = reverse('recipe:recipe-list')
+
+
+def sample_recipe(user, **params):
+    """Create and return a sample recipe"""
+    
