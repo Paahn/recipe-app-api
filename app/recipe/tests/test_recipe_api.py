@@ -175,7 +175,7 @@ class PrivateRecipeApiTests(TestCase):
         new_tag = sample_tag(user=self.user, name='Greek')
 
         payload = {'title': 'Pork Souvlaki', 'tags': [new_tag.id]}
-        url = detail_url(recipe.id)
+        url = details_url(recipe.id)
         self.client.patch(url, payload)
 
         recipe.refresh_from_db()
