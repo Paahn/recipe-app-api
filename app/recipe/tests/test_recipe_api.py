@@ -144,3 +144,28 @@ class PrivateRecipeApiTests(TestCase):
         self.assertIn(tag2, tags)
         self.assertIn(tag3, tags)
 
+    def test_create_recipe_with_ingredients(self):
+        """Test creating a recipe with ingredients"""
+        ingredient1 = sample_ingredient(user=self.user, name='Beef')
+        ingredient2 = sample_ingredient(user=self.user, name='Oyster Sauce')
+        ingredient3 = sample_ingredient(user=self.user, name='Onions')
+        ingredient4 = sample_ingredient(user=self.user, name='Broccoli')
+        payload = {
+          'title': 'Oyster Beef',
+          'ingredients': [ingredient1.id, ingredient2.id, 
+                          ingredient3.id, ingredient4.id],
+          'time_minutes': 15,
+          'price': 14.50
+        }
+        response = self.client.post(RECIPES_URL, payload)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        recipe = Recipe.objects.get(id=response.data['id'])
+        ingredients = recipe.ingredients.all()
+        self.assertEqual(ingredients.count(), 4)
+        self.assertIn(ingredient1, ingredients)
+        self.assertIn(ingredient2, ingredients)
+        self.assertIn(ingredient3, ingredients)
+        self.assertIn(ingredient4, ingredients)
+
+
