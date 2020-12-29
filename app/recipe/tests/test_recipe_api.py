@@ -97,4 +97,5 @@ class PrivateRecipeApiTests(TestCase):
     def test_view_recipe_detail(self):
         """Test viewing a recipe detail"""
         recipe = sample_recipe(user=self.user)
-        
+        recipe.tags.add(sample_tag(user=self.user))
+        recipe.ingredients.add(sample_ingredient(user=self.user))
