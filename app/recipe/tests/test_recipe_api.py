@@ -35,19 +35,18 @@ class PublicRecipeApiTests(TestCase):
         response = self.client.get(RECIPES_URL)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-    
+
 
 class PrivateRecipeApiTests(TestCase):
     """Test unauthenticated recipe API access"""
 
     def setUp(self):
-      self.client = APIClient()
-      self.user = get_user_model().objects.create_user(
-        'aladeen@aladeen.wa',
-        'aladeen'
-      )
-      self.client.force_authenticate(self.user)
-
+        self.client = APIClient()
+        self.user = get_user_model().objects.create_user(
+          'aladeen@aladeen.wa',
+          'aladeen'
+        )
+        self.client.force_authenticate(self.user)
 
     def test_retrieve_recipes(self):
         """Test retrieving a list of recipes"""
@@ -62,20 +61,19 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_recipes_limited_to_user(self):
-      """Test retrieving the correct recipes for the user"""
-      user2 = get_user_model().objects.create_user(
-        'borat@verynice.kz',
-        'pamela'
-      )
-      sample_recipe(user=user2)
-      sample_recipe(user=self.user)
+        """Test retrieving the correct recipes for the user"""
+        user2 = get_user_model().objects.create_user(
+          'borat@verynice.kz',
+          'pamela'
+        )
+        sample_recipe(user=user2)
+        sample_recipe(user=self.user)
 
-      response = self.client.get(RECIPES_URL)
+        response = self.client.get(RECIPES_URL)
 
-      recipes = Recipe.objects.filter(user=self.user)
-      serializer = RecipeSerializer(recipes, many=True)
+        recipes = Recipe.objects.filter(user=self.user)
+        serializer = RecipeSerializer(recipes, many=True)
 
-      self.assertEqual(response.status_code, status.HTTP_200_OK)
-      self.assertEqual(len(response.data), 1)
-      self.assertEqual(response.data, serializer.data)
-
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data, serializer.data)
