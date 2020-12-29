@@ -179,3 +179,6 @@ class PrivateRecipeApiTests(TestCase):
         self.client.patch(url, payload)
 
         recipe.refresh_from_db()
+        self.assertEqual(recipe.title, payload['title'])
+        tags = recipe.tags.all()
+        self.assertEqual(len(tags), 1)
