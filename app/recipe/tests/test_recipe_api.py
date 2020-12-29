@@ -183,3 +183,15 @@ class PrivateRecipeApiTests(TestCase):
         tags = recipe.tags.all()
         self.assertEqual(len(tags), 1)
         self.assertIn(new_tag, tags)
+
+    def test_full_update_recipe(self):
+        """Test updating a recipe with PUT"""
+        recipe = sample_recipe(user=self.user)
+        recipe.tags.add(sample_tag(user=self.user))
+        payload = {
+          'title': 'Chicken Gyros',
+          'time_minutes': 25,
+          'price': 6.00
+        }
+        url = details_url(recipe.id)
+        self.client.put(url, payload)
