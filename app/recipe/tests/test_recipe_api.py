@@ -127,13 +127,20 @@ class PrivateRecipeApiTests(TestCase):
         """Test creating a recipe with tags"""
         tag1 = sample_tag(user=self.user, name='Brunch')
         tag2 = sample_tag(user=self.user, name='Vegetarian')
+        tag3 = sample_tag(user=self.user, name='Healthy')
         payload = {
           'title': 'Grilled Avocado bowl',
-          'tags': [tag1.id, tag2.id],
+          'tags': [tag1.id, tag2.id, tag3.id],
           'time_minutes': 60,
           'price': 10.00
         }
         response = self.client.post(RECIPES_URL, payload)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        recipe = Recipe.objects.get(id=response.data['id'])
+        tags = recipe.tags.all()
+        self.assertEqual(tags.count(), 3)
+        self.assertIn(tag1, tags)
+        self.assertIn(tag2, tags)
+        self.assertIn(tag3, tags)
 
