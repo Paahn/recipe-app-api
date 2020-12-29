@@ -15,9 +15,11 @@ RECIPES_URL = reverse('recipe:recipe-list')
 # /api/recipe/recipes
 # /api/recipe/recipes/3/
 
+
 def details_url(recipe_id):
     """Return recipe detail URL"""
     return reverse('recipe:recipe-detail', args=[recipe_id])
+
 
 def sample_tag(user, name='Main Course'):
     """Create and return a sample tag"""
@@ -27,6 +29,7 @@ def sample_tag(user, name='Main Course'):
 def sample_ingredient(user, name='Olive oil'):
     """Create and return a sample ingredient"""
     return Ingredient.objects.create(user=user, name=name)
+
 
 def sample_recipe(user, **params):
     """Create and return a sample recipe"""
