@@ -182,3 +182,4 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(recipe.title, payload['title'])
         tags = recipe.tags.all()
         self.assertEqual(len(tags), 1)
+        self.assertIn(new_tag, tags)
