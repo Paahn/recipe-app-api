@@ -11,6 +11,13 @@ from recipe.serializers import RecipeSerializer
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
+# an example of how the details url will look with the id in it
+# /api/recipe/recipes
+# /api/recipe/recipes/3/
+
+def details_url(recipe_id):
+    """Return recipe detail URL"""
+    return reverse('recipe:recipe-detail', args=[recipe_id])
 
 def sample_tag(user, name='Main Course'):
     """Create and return a sample tag"""
