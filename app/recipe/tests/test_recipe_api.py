@@ -224,3 +224,7 @@ class RecipeImageUploadTests(TestCase):
         )
         self.client.force_authenticate(self.user)
         self.recipe = sample_recipe(user=self.user)
+
+    def tearDown(self):
+        """Remove all files we create for tests"""
+        self.recipe.image.delete()
