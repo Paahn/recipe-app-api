@@ -121,7 +121,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=response.data['id'])
         for key in payload.keys():
-          self.assertEqual(payload[key], getattr(recipe, key))
+            self.assertEqual(payload[key], getattr(recipe, key))
 
     def test_create_recipe_with_tags(self):
         """Test creating a recipe with tags"""
@@ -152,7 +152,7 @@ class PrivateRecipeApiTests(TestCase):
         ingredient4 = sample_ingredient(user=self.user, name='Broccoli')
         payload = {
           'title': 'Oyster Beef',
-          'ingredients': [ingredient1.id, ingredient2.id, 
+          'ingredients': [ingredient1.id, ingredient2.id,
                           ingredient3.id, ingredient4.id],
           'time_minutes': 15,
           'price': 14.50
@@ -167,5 +167,3 @@ class PrivateRecipeApiTests(TestCase):
         self.assertIn(ingredient2, ingredients)
         self.assertIn(ingredient3, ingredients)
         self.assertIn(ingredient4, ingredients)
-
-
