@@ -212,3 +212,15 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(recipe.price, payload['price'])
         tags = recipe.tags.all()
         self.assertEqual(len(tags), 0)
+
+
+class RecipeImageUploadTests(TestCase):
+
+    def setUp(self):
+        self.client = APIClient()
+        self.user = get_user_model().objects.create_user(
+            'borat@verynice.kz',
+            'pamela'
+        )
+        self.client.force_authenticate(self.user)
+        self.recipe = sample_recipe(user=self.user)
