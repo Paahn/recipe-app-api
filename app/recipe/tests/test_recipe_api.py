@@ -195,3 +195,5 @@ class PrivateRecipeApiTests(TestCase):
         }
         url = details_url(recipe.id)
         self.client.put(url, payload)
+
+        recipe.refresh_from_db()
