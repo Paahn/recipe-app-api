@@ -167,3 +167,15 @@ class PrivateRecipeApiTests(TestCase):
         self.assertIn(ingredient2, ingredients)
         self.assertIn(ingredient3, ingredients)
         self.assertIn(ingredient4, ingredients)
+
+    def test_partial_update_recipe(self):
+        """Test updating a recipe with PATCH"""
+        recipe = sample_recipe(user=self.user)
+        recipe.tags.add(sample_tag(user=self.user))
+        new_tag = sample_tag(user=self.user, name='Greek')
+
+        payload = {'title': 'Pork Souvlaki', 'tags': [new_tag.id]}
+        url = detail_url(recipe.id)
+        self.client.patch(url, payload)
+
+        recipe.refresh_from_db()
