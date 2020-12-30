@@ -272,3 +272,11 @@ class RecipeImageUploadTests(TestCase):
             RECIPES_URL,
             {'tags': f'{tag1.id},{tag2.id}'}
         )
+
+        serializer1 = RecipeSerializer(recipe1)
+        serializer2 = RecipeSerializer(recipe2)
+        serializer3 = RecipeSerializer(recipe3)
+        self.assertIn(serializer1.data, response.data)
+        self.assertIn(serializer2.data, response.data)
+        self.assertNotIn(serializer3.data, response.data)
+
