@@ -26,7 +26,7 @@ class BaseRecipeElementsViewSet(viewsets.GenericViewSet,
 
         return queryset.filter(
             user=self.request.user
-            ).order_by('-name')
+            ).order_by('-name').distinct()
 
     def perform_create(self, serializer):
         """Create a new recipe element"""
