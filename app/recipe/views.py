@@ -17,6 +17,9 @@ class BaseRecipeElementsViewSet(viewsets.GenericViewSet,
 
     def get_queryset(self):
         """Return objects for the current authenticated user only"""
+        assigned_only = bool(
+            int(self.request.query_params.get('assigned_only'))
+        )
         return self.queryset.filter(
             user=self.request.user
             ).order_by('-name')
