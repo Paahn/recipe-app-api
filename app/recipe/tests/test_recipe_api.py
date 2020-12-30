@@ -260,7 +260,15 @@ class RecipeImageUploadTests(TestCase):
 
     def test_filter_recipes_by_tags(self):
         """Test filtering recipes by specific tags"""
-        recipe1 = sample_recipe(user=self.user, title='Baklava')
+        recipe1 = sample_recipe(user=self.user, title='Zuccini keftedes')
         recipe2 = sample_recipe(user=self.user, title='Paprika Pancetta')
         recipe3 = sample_recipe(user=self.user, title='Eggs, Spam, Sausage')
-        
+        tag1 = sample_tag(user=self.user, name='Greek Food')
+        tag2 = sample_tag(user=self.user, name='Dinner')
+        recipe1.tags.add(tag1)
+        recipe2.tags.add(tag2)
+
+        response = self.client.get(
+            RECIPES_URL,
+            {'tags': f'{tag1.id},{tag2.id}'}
+        )
